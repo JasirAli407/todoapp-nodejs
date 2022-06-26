@@ -1,0 +1,116 @@
+     
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://kit.fontawesome.com/4aa4b56328.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/css/home.css">
+        
+        </head>
+
+        <body>
+
+        <div id="to-do-app">
+        <header>
+        <h1 id="main-heading">TODO APP</h1>
+        </header>
+           
+          <!-- form to add new task -->
+        <form   action="/actions/create-task" method="post">
+            <!-- container for description input -->
+        <div id="desc-container" >
+        <label for="description">
+        <h4 class="sec-heading">DESCRIPTION</h4>
+        <input type="text" name="description" required placeholder="What do you need to do?"
+        id="description" class="task-input">
+       
+        </label>
+
+        </div>
+            <!-- container for category and date input -->
+        <div id="category-date-container">
+         
+            <!-- category section -->
+        <div id="category-box" class="container">
+        <label for="category">
+        <h4 class="sec-heading">CATEGORY
+        </h4>
+
+        <select name="category" id="category" class="task-input" required>
+        </label>
+        <option selected disabled value="">Choose from the list</option>
+
+
+        <option value="personal">Personal</option>
+
+        <option value="work">Work</option>
+
+        <option value="school">School</option>
+
+        <option value="other">Other</option>
+        </select>
+
+        </div>
+
+
+           <!-- date section -->
+        <div id="due-date-box" class="container">
+        <label for="due-date">
+        <h4 class="sec-heading">DUE DATE</h4>
+        <input type="date" name="due_date" id="due-date" class="task-input">
+        </div>
+        </label>
+        </div>
+           
+        <!-- add, delete button container -->
+        <div class="action-button-container">
+        <button id="add-btn" type="submit" class="action-button"><i class="fas fa-plus"></i> ADD TASK</button>
+
+        <!-- button to delete tasks -->
+        <button class="action-button" id="del-btn" form="tasks-list-form"><i class="fas fa-minus"></i> DELETE TASK</button>
+        </div>
+        </form>
+
+
+       <!-- this div will show all the tasks in the db -->
+       <div id="task-list-container">
+        <form action="/actions/delete-task" id="tasks-list-form" method="post">
+
+    <% for(let i of task_list){ %>
+   
+        <ul>
+
+        <li class="to-do-item">
+        <div id="list-left">
+        <input type="checkbox" name="id" value="<%= i._id %>"
+        class="todo-checkbox">
+
+        <div class="list-desc-date"><div class="list-desc"><%= i.description %> </div>
+            <div class="list-date"><i class="fas fa-calendar-alt"></i>
+                <%= i.due_date %>
+            </div>
+        </div>
+        </div>
+        <div class="list-right" style="background-color: <%= color_list[i.category]%>;">
+       <%= i.category %>
+        </div>
+        </li>
+
+
+        </ul>
+        <% } %>
+        
+        </form>
+   
+</div>
+
+        </div>
+
+        <script src="/js/home.js"></script>
+        </body>
+       
+        </html>
